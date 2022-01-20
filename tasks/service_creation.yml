@@ -1,0 +1,36 @@
+---
+- name: "Create {{ tron_sevice_name }} systemd service"
+  template:
+    src: tron.service.j2
+    dest: "{{ tron_service_dir }}/{{ tron_sevice_name }}.service"
+    mode: 0644
+
+- name: "Find uid of {{ tron_user_name }}"
+  command: "id -u {{ tron_user_name }}"
+  register: the_user_uid
+  become: true
+  become_user: "{{ tron_user_name }}"
+
+- name: "Determine XDG_RUNTIME_DIR"
+  set_fact:
+    xdg_runtime_dir: "/run/user/{{ the_user_uid.stdout }}"
+  changed_when: false
+  become: true
+  become_user: "{{ tron_user_name }}"
+
+- name: "Update bashrc for {{ tron_user_name }}"
+  lineinfile:
+    path: "/home/{{ tron_user_name }}/.bashrc"
+    line: "export XDG_RUNTIME_DIR=/run/user/{{ the_user_uid.stdout }}"
+
+- name: "Start and enable {{ tron_sevice_name }} service"
+  become: true
+  become_user: "{{ tron_user_name }}"
+  environment:
+    XDG_RUNTIME_DIR: "{{ xdg_runtime_dir }}"
+  systemd:
+    scope: user
+    daemon_reload: yes
+    name: "{{ tron_sevice_name }}.service"
+    enabled: "{{ tron_service_enabled }}"
+    state: "{{ tron_service_state }}"
