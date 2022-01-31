@@ -4,7 +4,7 @@
     block: |
       node.jsonrpc {
         httpFullNodeEnable = "{{ tron_httpFullNodeEnable }}"
-        httpFullNodePort = "{{ tron_ httpFullNodePort }}"
+        httpFullNodePort = "{{ tron_httpFullNodePort }}"
         }
 
 - name: "Replace maxTimeRatio"

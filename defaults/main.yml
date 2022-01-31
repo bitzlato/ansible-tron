@@ -12,6 +12,6 @@ tron_service_dir: "/home/{{ tron_user_name }}/.config/systemd/user/"
 tron_bind_ip: '"127.0.0.1"'
 tron_external_ip: "null"
 tron_httpFullNodeEnable: 'true' # false
-tron_ httpFullNodePort: "8545"
+tron_httpFullNodePort: "8545"
 tron_service_enabled: 'No' # yes
 tron_service_state: 'stopped' # started
