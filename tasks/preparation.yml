@@ -15,7 +15,6 @@
     mode: 0755
     recurse: yes
   loop:
-    - "{{ tron_root }}"
     - "{{ tron_datadir }}"
     - "{{ tron_service_dir }}"
 
@@ -37,18 +36,3 @@
     owner: "{{ tron_user_name }}"
     group: "{{ tron_user_name }}"
     mode: 0755
-
-- name: "Insert jrpc configuration in main_net_config"
-  blockinfile:
-    path: "{{ tron_conf_path }}"
-    block: |
-      node.jsonrpc {
-        httpFullNodeEnable = true
-        httpFullNodePort = 8545
-        }
-
-- name: "Replace maxTimeRatio"
-  lineinfile:
-    path: "{{ tron_conf_path }}"
-    search_string: 'maxTimeRatio = 5.0'
-    line: "  maxTimeRatio = 20.0"

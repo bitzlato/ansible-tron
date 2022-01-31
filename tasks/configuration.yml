@@ -1,0 +1,32 @@
+- name: "Insert jrpc configuration in main_net_config"
+  blockinfile:
+    path: "{{ tron_conf_path }}"
+    block: |
+      node.jsonrpc {
+        httpFullNodeEnable = "{{ tron_httpFullNodeEnable }}"
+        httpFullNodePort = "{{ tron_ httpFullNodePort }}"
+        }
+
+- name: "Replace maxTimeRatio"
+  lineinfile:
+    path: "{{ tron_conf_path }}"
+    search_string: 'maxTimeRatio = 5.0'
+    line: "  maxTimeRatio = 20.0"
+
+- name: "Replace supportConstant"
+  lineinfile:
+    path: "{{ tron_conf_path }}"
+    search_string: 'supportConstant = false'
+    line: "  supportConstant = true"
+
+- name: "Replace bind ip"
+  lineinfile:
+    path: "{{ tron_conf_path }}"
+    search_string: 'bind.ip = ""'
+    line: "  bind.ip = {{ tron_bind_ip }}"
+
+- name: "Replace external ip"
+  lineinfile:
+    path: "{{ tron_conf_path }}"
+    search_string: 'external.ip = null'
+    line: "  external.ip = {{ tron_external_ip }}"    

@@ -9,9 +9,9 @@ tron_version: "4.4.3"
 tron_fullnode_url: "https://github.com/tronprotocol/java-tron/releases/download/GreatVoyage-v{{ tron_version }}/FullNode.jar"
 tron_config_url: "https://raw.githubusercontent.com/tronprotocol/tron-deployment/master/main_net_config.conf"
 tron_service_dir: "/home/{{ tron_user_name }}/.config/systemd/user/"
-tron_bind_ip: "127.0.0.1"
+tron_bind_ip: '"127.0.0.1"'
 tron_external_ip: "null"
-tron_rpc_host_port: 50052
-tron_http_port: 18891
+tron_httpFullNodeEnable: 'true' # false
+tron_ httpFullNodePort: "8545"
 tron_service_enabled: 'No' # yes
 tron_service_state: 'stopped' # started
