@@ -3,7 +3,9 @@ Description= tron full node
 After=network.target
 
 [Service]
-ExecStart=java -Xmx24g -XX:+HeapDumpOnOutOfMemoryError -jar "{{ tron_root }}/FullNode.jar" -c {{ tron_conf_path }} -d {{ tron_datadir }}
+ExecStart=java -Xmx24g -XX:+UseConcMarkSweepGC -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+CMSParallelRemarkEnabled -XX:ReservedCodeCacheSize=256m -XX:+UseCodeCacheFlushing \
+    -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=512m -XX:MaxDirectMemorySize=1g -XX:+HeapDumpOnOutOfMemoryError -XX:NewRatio=2 -XX:+HeapDumpOnOutOfMemoryError \
+    -jar "{{ tron_root }}/FullNode.jar" -c {{ tron_conf_path }} -d {{ tron_datadir }}
 Restart=on-failure
 
 # Specifies which signal to use when killing a service. Defaults to SIGTERM.
