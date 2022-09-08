@@ -29,4 +29,10 @@
   lineinfile:
     path: "{{ tron_conf_path }}"
     search_string: 'external.ip = null'
-    line: "  external.ip = {{ tron_external_ip }}"    
+    line: "  external.ip = {{ tron_external_ip }}"
+
+- name: "Replace listen port"
+  lineinfile:
+    path: "{{ tron_conf_path }}"
+    search_string: 'listen.port = 18888'
+    line: "  listen.port = {{ tron_listen_port }}"
